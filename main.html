@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Tracker</title>
+    <link rel="stylesheet" href="design.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Assignment Tracker</h1>
+            <p id="userGreeting"></p>
+        </div>
+
+        
+
+        <div class="add-assignment">
+            <h2>Add New Assignment</h2>
+            <form id="assignmentForm">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input class="text-box" type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dueDate">Due Date:</label>
+                    <input type="date" id="dueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <select id="priority">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <button type="submit">Add Assignment</button>
+            </form>
+        </div>
+
+        <div class="sort-controls">
+            <label for="sortBy">Sort by:</label>
+            <select class="sort-by" id="sortBy">
+                <option class="sort-by" value="dueDate">Due Date</option>
+                <option class="sort-by" value="priority">Priority</option>
+                <option class="sort-by" value="title">Title</option>
+            </select>
+        </div>
+
+        <div id="assignmentsContainer" class="assignments-container">
+            <!-- Assignments will be added here dynamically -->
+        </div>
+
+        <div class="logout">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        let loggedInUser = localStorage.getItem('loggedInUser');
+
+        if (!loggedInUser) {
+            alert('You must log in first.');
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('userGreeting').innerText = `Welcome, ${loggedInUser}!`;
+        }
+
+
+        function logout() {
+            // Remove logged-in user data from localStorage
+            localStorage.removeItem('loggedInUser');
+            alert('You have been logged out.');
+            // Redirect to login page
+            window.location.href = 'index.html';
+        }
+    
+        class AssignmentTracker {
+            constructor() {
+                this.assignments = JSON.parse(localStorage.getItem('assignments')) || [];
+                this.form = document.getElementById('assignmentForm');
+                this.container = document.getElementById('assignmentsContainer');
+                this.sortSelect = document.getElementById('sortBy');
+    
+                this.initializeEventListeners();
+                this.renderAssignments();
+            }
+    
+            initializeEventListeners() {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addAssignment();
+                });
+    
+                this.sortSelect.addEventListener('change', () => {
+                    this.renderAssignments();
+                });
+            }
+    
+            addAssignment() {
+                const assignment = {
+                    id: Date.now(),
+                    title: document.getElementById('title').value,
+                    description: document.getElementById('description').value,
+                    dueDate: document.getElementById('dueDate').value,
+                    priority: document.getElementById('priority').value,
+                    createdAt: new Date().toISOString()
+                };
+    
+                this.assignments.push(assignment);
+                this.saveToLocalStorage();
+                this.renderAssignments();
+                this.form.reset();
+            }
+    
+            deleteAssignment(id) {
+                this.assignments = this.assignments.filter(assignment => assignment.id !== id);
+                this.saveToLocalStorage();
+                this.renderAssignments();
+            }
+    
+            saveToLocalStorage() {
+                localStorage.setItem('assignments', JSON.stringify(this.assignments));
+            }
+    
+            sortAssignments() {
+                const sortBy = this.sortSelect.value;
+    
+                return [...this.assignments].sort((a, b) => {
+                    if (sortBy === 'dueDate') {
+                        return new Date(a.dueDate) - new Date(b.dueDate);
+                    } else if (sortBy === 'priority') {
+                        const priorityOrder = { high: 1, medium: 2, low: 3 };
+                        return priorityOrder[a.priority] - priorityOrder[b.priority];
+                    } else {
+                        return a.title.localeCompare(b.title);
+                    }
+                });
+            }
+    
+            renderAssignments() {
+                this.container.innerHTML = '';
+                const sortedAssignments = this.sortAssignments();
+    
+                sortedAssignments.forEach(assignment => {
+                    const card = document.createElement('div');
+                    card.className = `assignment-card ${assignment.priority}-priority`;
+    
+                    const dueDate = new Date(assignment.dueDate).toLocaleDateString();
+                    const isOverdue = new Date(assignment.dueDate) < new Date();
+    
+                    card.innerHTML = `
+                        <div class="assignment-header">
+                            <h3>${assignment.title}</h3>
+                            <button class="delete-btn" onclick="tracker.deleteAssignment(${assignment.id})">Delete</button>
+                        </div>
+                        <p class="assignment-description">${assignment.description}</p>
+                        <p class="assignment-date ${isOverdue ? 'overdue' : ''}">
+                            Due: ${dueDate}
+                        </p>
+                        <p>Priority: ${assignment.priority.charAt(0).toUpperCase() + assignment.priority.slice(1)}</p>
+                    `;
+    
+                    this.container.appendChild(card);
+                });
+            }
+        }
+    
+        const tracker = new AssignmentTracker();
+    </script>
+</body>
+</html>

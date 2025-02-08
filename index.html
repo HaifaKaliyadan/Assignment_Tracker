@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Page</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+        
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2 id="formTitle">Login</h2>
+            <input class="box" type="text" id="username" placeholder="Username">
+            <input class="box" type="password" id="password" placeholder="Password">
+            <button onclick="handleAuth()" id="authButton">Login</button>
+            <p id="toggleText">Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a></p>
+        </div>
+
+        <script>
+            let isLogin = true;
+            
+            function toggleForm() {
+                isLogin = !isLogin;
+                document.getElementById('formTitle').innerText = isLogin ? 'Login' : 'Sign Up';
+                document.getElementById('authButton').innerText = isLogin ? 'Login' : 'Sign Up';
+                document.getElementById('toggleText').innerHTML = isLogin ? 
+                    "Don't have an account? <a href='#' onclick='toggleForm()'>Sign Up</a>" : 
+                    "Already have an account? <a href='#' onclick='toggleForm()'>Login</a>";
+            }
+            
+            function handleAuth() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                if (isLogin) {
+                    // Login
+                    const storedUser = JSON.parse(localStorage.getItem(username));
+
+                    if (storedUser && storedUser.password === btoa(password)) {
+                        alert(`Welcome back, ${username}!`);
+                        localStorage.setItem('loggedInUser',username);
+                        window.location.href = 'main.html';
+                    } else {
+                        alert('Invalid username or password');
+                    }
+                } else {
+                    // Sign Up
+                    if (localStorage.getItem(username)) {
+                        alert('Username already registered');
+                        return;
+                    }
+
+                    const user = { username, password: btoa(password) }; // Encode password (not secure)
+                    localStorage.setItem(username, JSON.stringify(user));
+                    alert('Account created successfully! You can now log in.');
+                    toggleForm();
+                }
+            }
+        </script>
+    </body>
+</html>
