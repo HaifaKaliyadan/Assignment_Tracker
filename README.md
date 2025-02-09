@@ -32,12 +32,78 @@ For Software:
 - HTML, CSS, Javascript
 - Visual Studio Code, Git
 
-### Implementation
-For Software:
+
 
 
 ### Project Documentation
-For Software:
+Assignment Tracker Website - Documentation
+1. Introduction
+
+The Assignment Tracker Website is a user-friendly tool designed to help users manage assignments effectively. It allows users to add assignments, set deadlines, prioritize tasks, track progress, and sort assignments based on various criteria.
+
+2. Features
+
+✔ User Authentication
+Users can sign up and create an account.
+It ensures that each user has a personalized dashboard.
+
+✔ Adding Assignments
+Users can enter assignment details, including:
+Title
+Description
+Due Date
+Priority (High, Medium, Low)
+
+✔ Sorting Assignments
+Assignments can be sorted by:
+Due Date – Urgent assignments first.
+Priority – High-priority tasks at the top.
+Title – Alphabetical sorting.
+
+✔ Persistent Storage
+It uses localStorage to save assignments, so data is not lost when the page is refreshed.
+
+✔ Logout & Secure Access
+Users can log out anytime to secure their data.
+On the next login, assignments will be restored automatically.
+
+3. How It Works
+ 
+1️⃣ Sign Up / Log In
+Users must create an account to use the platform.
+After logging in, they are redirected to the Assignment Tracker Dashboard.
+
+2️⃣ Add Assignments
+Click the "Add Assignment" button.
+Enter details: Title, Description, Due Date, Priority, Progress.
+Click Submit to save the assignment.
+
+3️⃣ Sort & Track Assignments
+Assignments are displayed in a list.
+Users can sort by date, priority, or title.
+Progress can be updated with a dropdown menu.
+
+4️⃣ Delete Assignments
+Completed assignments can be removed using the "Delete" button.
+
+5️⃣ Logout
+Users click Logout to end the session securely.
+
+4. Future Enhancements
+
+🚀 Cloud Database (Firebase, MongoDB) – Store assignments online for better accessibility.
+
+🚀 Notifications & Reminders – Email alerts for upcoming due dates.
+
+🚀 Collaboration Feature – Share assignments with teammates.
+
+🚀 Mobile App Version – Develop an Android/iOS app for better usability.
+
+5. Conclusion
+   
+The Assignment Tracker Website is a simple yet effective tool for managing assignments, setting deadlines, and prioritizing tasks. It is designed to boost productivity and help users stay organized. 🚀
+
+
 
 # Screenshots 
 The Sign-up page to create an account.
