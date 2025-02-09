@@ -1,5 +1,5 @@
 # Assignment_Tracker
-As part of Tink-Her-Hack, we've created a website that can effectively help you to track your assignments.
+As part of Tink-Her-Hack 3.0, we've created a website that can effectively help you to track your assignments, so that you never have to miss the submission date again!
 
 
 # Assignment Tracker 🎯
@@ -39,7 +39,7 @@ For Software:
 ### Project Documentation
 For Software:
 
-# Screenshots (Add at least 3)
+# Screenshots 
 The Sign-up page to create an account.
 ![image1](https://github.com/user-attachments/assets/76ebb57e-0ba9-4d4d-a9d8-fca2c5e3f399)
 
@@ -62,8 +62,10 @@ The final look of our webpage after adding a few assignments and sorting them by
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+The video demonstrates the working of our video. You can create an account and then log in. After that, you will reach the assignment tracker page, from where you'll be able to add assignments as shown. You can add a description for each new assignment, set the due date, prioritize assignments based on personal preferences, and view the assignments. There is a delete option to delete any entry. You can also sort the entered assignments based on priority, end date, and title. After use, you can log out using the log-out button provided.
+
+https://github.com/user-attachments/assets/23e3cdd6-8062-47d3-be30-c5fb6e8d0b84
+
 
 
 
