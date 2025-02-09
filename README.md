@@ -137,7 +137,7 @@ https://github.com/user-attachments/assets/23e3cdd6-8062-47d3-be30-c5fb6e8d0b84
 
 ## Team Contributions
 - Haifa Kaliyadan: Major programming
-- Aashna H: Minor programming
+- [Aashna H](https://github.com/Aashna-H): Minor programming
 
 
 ---
