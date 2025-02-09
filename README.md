@@ -1,5 +1,5 @@
 # Assignment_Tracker
-As part of Tink-Her-Hack 3.0, we've created a website that can effectively help you to track your assignments, so that you never have to miss the submission date again!
+As part of Tink-Her-Hack 3.0, we've created a minimal website that can effectively help you track your assignments, so that you never have to miss the submission date again!
 
 
 # Assignment Tracker 🎯
