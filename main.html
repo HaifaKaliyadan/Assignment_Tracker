@@ -74,24 +74,27 @@
             document.getElementById('userGreeting').innerText = `Welcome, ${loggedInUser}!`;
         }
 
-
         function logout() {
-            // Remove logged-in user data from localStorage
             localStorage.removeItem('loggedInUser');
             alert('You have been logged out.');
-            // Redirect to login page
             window.location.href = 'index.html';
         }
     
         class AssignmentTracker {
             constructor() {
-                this.assignments = JSON.parse(localStorage.getItem('assignments')) || [];
+                this.loggedInUser = localStorage.getItem('loggedInUser');
+                this.assignments = this.getUserAssignments();
                 this.form = document.getElementById('assignmentForm');
                 this.container = document.getElementById('assignmentsContainer');
                 this.sortSelect = document.getElementById('sortBy');
     
                 this.initializeEventListeners();
                 this.renderAssignments();
+            }
+
+            getUserAssignments() {
+                const userAssignmentsKey = `assignments_${this.loggedInUser}`;
+                return JSON.parse(localStorage.getItem(userAssignmentsKey)) || [];
             }
     
             initializeEventListeners() {
@@ -128,7 +131,8 @@
             }
     
             saveToLocalStorage() {
-                localStorage.setItem('assignments', JSON.stringify(this.assignments));
+                const userAssignmentsKey = `assignments_${this.loggedInUser}`;
+                localStorage.setItem(userAssignmentsKey, JSON.stringify(this.assignments));
             }
     
             sortAssignments() {
